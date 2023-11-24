@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import UpsertRole from "./CreateRole/UpsertRole.vue";
+import UpsertRole from "./UpsertRole.vue";
 import { Link } from "@inertiajs/vue3";
 import axios from "axios";
 export default {

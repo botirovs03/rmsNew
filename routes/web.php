@@ -26,7 +26,14 @@ Route::get('/menu', [MenuController::class, 'index']);
 Route::get('/order', [OrderController::class, 'index']);
 Route::get('/table', [TableController::class, 'index']);
 Route::get('/transaction', [TransactionController::class, 'index']);
+
+
 Route::get('/user', [UserController::class, 'index'])->name('user.index');
+Route::get('/user/roles', [UserController::class, 'roles']);
+Route::get('/user/{id}', [UserController::class, 'show']);
+Route::post('/user/create', [UserController::class, 'store']);
+Route::delete('/user/delete/{id}', [UserController::class, 'destroy']);
+Route::put('/user/update/{id}', [UserController::class, 'update']);
 
 Route::get('/role', [RoleController::class, 'index'])->name('role.index');
 Route::get('/role/{id}', [RoleController::class, 'show']);

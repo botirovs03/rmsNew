@@ -10,7 +10,7 @@
             })">
                 <!-- email -->
                 <input type="text" v-model="formCreate.name" placeholder="Name" required/>
-                <div v-if="formCreate.errors.name">{{ form.errors.name }}</div>
+                <div v-if="formCreate.errors.name">{{ formCreate.errors.name }}</div>
 
                 <button v-else type="submit" :disabled="formCreate.processing">Add</button>
             </form>
@@ -23,7 +23,7 @@
             })">
                 <!-- email -->
                 <input type="text" v-model="formUpdate.name" required/>
-                <div v-if="formUpdate.errors.name">{{ form.errors.name }}</div>
+                <div v-if="formUpdate.errors.name">{{ formUpdate.errors.name }}</div>
 
                 <button type="submit" :disabled="formUpdate.processing">Update</button>
             </form>
