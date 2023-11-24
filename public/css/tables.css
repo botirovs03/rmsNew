@@ -1,0 +1,150 @@
+table {
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 25px;
+    border-spacing: 0;
+    border-radius: 25px;
+    /* text-align: center; */
+}
+
+th,
+td {
+    padding: 5px;
+    /* text-align: center; */
+    border: 1px solid var(--border);
+    overflow: hidden;
+}
+
+th {
+    /* height: 50px; */
+    background-color: var(--border);
+    color: white;
+    border-left: 1px solid #ffd966; /* Add a white left border to the header cells */
+    border-right: 1px solid #ffd966; /* Add a white right border to the header cells */
+}
+
+th:first-child {
+    border-top-left-radius: 25px;
+}
+
+th:last-child {
+    border-top-right-radius: 25px;
+    border-right: none; /* Remove the right border from the last header cell */
+    width: 100px;
+}
+
+tr:nth-child(even) {
+    background-color: #fef7e5; /* Background color for even rows */
+}
+
+tr:hover {
+    background-image: linear-gradient(
+        rgba(10, 10, 10, 0.1),
+        rgba(10, 10, 10, 0.1)
+    );
+}
+
+tr:last-child {
+    border-radius: 30px;
+}
+
+.th__min {
+    width: 30px;
+}
+
+.th__mid {
+    width: 100px;
+}
+
+.marked {
+    background-image: linear-gradient(
+        rgba(249, 161, 129, 0.089),
+        rgba(239, 122, 122, 0.116)
+    );
+}
+
+/* Customize the status buttons */
+.btn-status {
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+    border-radius: 10px; /* Rounded corners for buttons */
+    height: 30px;
+    font-size: 14px;
+    /* line-height: 30px; */
+    cursor: pointer;
+    user-select: none;
+}
+
+
+.btn-available {
+    background-color: #4caf50; /* Green color for available status */
+    color: white;
+}
+
+.btn-occupied {
+    background-color: #f44336; /* Red color for occupied status */
+    color: white;
+}
+
+/* Hover effect for status buttons */
+.btn-status:hover {
+    opacity: 0.8;
+}
+
+/* Add border-radius to the table */
+.content table {
+    border-radius: 20px;
+}
+
+/* Styles for the update and delete links */
+
+.update-link,
+.delete-link {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 50%;
+    font-size: 20px;
+    margin: 0 5px;
+    background-color: #f9e4a3; /* Change this color as needed */
+    color: #333; /* Change this color as needed */
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+}
+
+.update-link:hover,
+.delete-link:hover {
+    background-color: #f9d284; /* Change this color as needed */
+}
+
+/* Style the icons inside the links */
+.update-link i,
+.delete-link i {
+    vertical-align: middle;
+}
+
+/* Styles for the button wrapper */
+.btn-wrapper {
+    display: inline-block;
+}
+
+/* Styles for the "Create User" link */
+.create-link {
+    display: inline-block;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    user-select: none;
+    text-decoration: none;
+    background-color: #f87f30; /* Orange color for the button background */
+    color: white; /* White text color */
+}
+
+.create-link i {
+    margin-right: 5px; /* Add some space between the icon and text */
+}
