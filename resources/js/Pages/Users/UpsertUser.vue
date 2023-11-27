@@ -1,6 +1,6 @@
 <template>
     <div id="backModal" @click="Close">
-        <div id="modal" @click.stop>
+        <div id="modal" @click.stop @mouseup.stop>
             <button class="closeButton" @click="Close">
                 <fa icon="xmark" />
             </button>
@@ -10,8 +10,19 @@
                 v-if="this.updateData.id == undefined"
                 @submit.prevent="
                     formCreate.post('/user/create', {
+                        onBefore: () => {
+                            console.log('asdfasdfasdf');
+                            if (formCreate.password !== formCreate.passwordR) {
+                                // Passwords do not match, prevent form submission
+                                console.log('dont match')
+                                return false; // Returning false prevents form submission
+                            }
+                           
+                            // Continue with the form submission logic if passwords match
+                        },
                         onSuccess: () => {
                             formCreate.reset();
+                            Close();
                         },
                     })
                 "
@@ -22,7 +33,7 @@
                     placeholder="Name"
                     required
                 />
-                <div v-if="formCreate.errors.name">{{ form.errors.name }}</div>
+                <div v-if="formCreate.errors.name">{{ formCreate.errors.name }}</div>
 
                 <select v-model="formCreate.gender" required>
                     <option value="---Select your gender---" selected disabled>
@@ -36,7 +47,7 @@
                 </div>
 
                 <input
-                    type="text"
+                    type="email"
                     v-model="formCreate.email"
                     placeholder="Email"
                     required
@@ -65,7 +76,7 @@
                     {{ formCreate.errors.address }}
                 </div>
 
-                <select v-model="formCreate.roles" required>
+                <select v-model="formCreate.role_id" required>
                     <option value="---Select role---" selected disabled>
                         ---Select role---
                     </option>
@@ -77,12 +88,12 @@
                         {{ role.name }}
                     </option>
                 </select>
-                <div v-if="formCreate.errors.roles">
-                    {{ formCreate.errors.gender }}
+                <div v-if="formCreate.errors.role_id">
+                    {{ formCreate.errors.role_id }}
                 </div>
 
                 <input
-                    type="text"
+                    type="password"
                     v-model="formCreate.password"
                     placeholder="Password"
                     required
@@ -92,13 +103,13 @@
                 </div>
 
                 <input
-                    type="text"
-                    v-model="formCreate.Rpassword"
+                    type="password"
+                    v-model="formCreate.passwordR"
                     placeholder="Repeat the Password"
                     required
                 />
-                <div v-if="formCreate.errors.Rpassword">
-                    {{ formCreate.errors.Rpassword }}
+                <div v-if="formCreate.errors.passwordR">
+                    {{ formCreate.errors.passwordR }}
                 </div>
 
                 <button v-else type="submit" :disabled="formCreate.processing">
@@ -110,7 +121,7 @@
                 v-else
                 class="modalForm"
                 @submit.prevent="
-                    formUpdate.put('/role/update/' + updateData.id, {
+                    formUpdate.put('/user/update/' + updateData.id, {
                         onSuccess: () => {
                             formUpdate.reset();
                             Close();
@@ -118,12 +129,13 @@
                     })
                 "
             >
-                <!-- email -->
                 <input type="text" v-model="formUpdate.name" required />
-                <div v-if="formUpdate.errors.name">{{ form.errors.name }}</div>
+                <div v-if="formUpdate.errors.name">
+                    {{ formUpdate.errors.name }}
+                </div>
 
                 <select v-model="formUpdate.gender" required>
-                    <option value="---Select your gender---" selected disabled>
+                    <option value="1" selected disabled>
                         ---Select your gender---
                     </option>
                     <option value="Male">Male</option>
@@ -163,7 +175,7 @@
                     {{ formUpdate.errors.address }}
                 </div>
 
-                <select v-model="formUpdate.roles" required>
+                <select v-model="formUpdate.role_id" required>
                     <option value="---Select role---" disabled>
                         ---Select role---
                     </option>
@@ -171,33 +183,41 @@
                         v-for="role in roles"
                         :value="role.id"
                         :key="role.id"
-                        :selected="role.id == formUpdate.role_id"
                     >
                         {{ role.name }}
                     </option>
                 </select>
-                <div v-if="formUpdate.errors.roles">
-                    {{ formUpdate.errors.roles }}
+                <div v-if="formUpdate.errors.role_id">
+                    {{ formUpdate.errors.role_id }}
+                </div>
+
+                <div class="checkbox-container">
+                    <input
+                        type="checkbox"
+                        v-model="formUpdate.ispassword"
+                        name="ispass"
+                    />
+                    <label for="ispass">Update password</label>
                 </div>
 
                 <input
-                    type="text"
+                    type="password"
                     v-model="formUpdate.password"
                     placeholder="Password"
-                    required
+                    :disabled="!formUpdate.ispassword"
                 />
                 <div v-if="formUpdate.errors.password">
                     {{ formUpdate.errors.password }}
                 </div>
 
                 <input
-                    type="text"
-                    v-model="formUpdate.Rpassword"
+                    type="password"
+                    v-model="formUpdate.passwordR"
                     placeholder="Repeat the Password"
-                    required
+                    :disabled="!formUpdate.ispassword"
                 />
-                <div v-if="formUpdate.errors.Rpassword">
-                    {{ formCreate.errors.Rpassword }}
+                <div v-if="formUpdate.errors.passwordR">
+                    {{ formCreate.errors.passwordR }}
                 </div>
 
                 <button type="submit" :disabled="formUpdate.processing">
@@ -240,7 +260,15 @@ export default {
     data() {
         return {
             formCreate: useForm({
-                name: null,
+                name: "",
+                gender: "1",
+                email: "",
+                phone: "",
+                address: "",
+                role_id: "1",
+                ispassword: false,
+                password: "",
+                passwordR: "",
             }),
             formUpdate: useForm({
                 id: this.updateData.id,
@@ -251,7 +279,8 @@ export default {
                 address: this.updateData.address,
                 role_id: this.updateData.role_id,
                 ispassword: false,
-                password: this.updateData.password,
+                password: "",
+                passwordR: "",
             }),
             roles: [],
         };

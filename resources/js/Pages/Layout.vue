@@ -175,7 +175,7 @@ transform: scale(0.9);
     display: block;
     margin: 10px;
     color: black;    
-    font-size: 36px;
+    font-size: 26px;
 }
 
 a {

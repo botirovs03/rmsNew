@@ -29,9 +29,9 @@ Route::get('/transaction', [TransactionController::class, 'index']);
 
 
 Route::get('/user', [UserController::class, 'index'])->name('user.index');
-Route::get('/user/roles', [UserController::class, 'roles']);
-Route::get('/user/{id}', [UserController::class, 'show']);
 Route::post('/user/create', [UserController::class, 'store']);
+Route::get('/user/roles', [UserController::class, 'getRoles']);
+Route::get('/user/{id}', [UserController::class, 'show']);
 Route::delete('/user/delete/{id}', [UserController::class, 'destroy']);
 Route::put('/user/update/{id}', [UserController::class, 'update']);
 

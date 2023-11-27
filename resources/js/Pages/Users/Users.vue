@@ -41,7 +41,7 @@
                         <fa icon="pencil" />
                         </button>
                         <Link
-                            :href="'/role/delete/' + user.id"
+                            :href="'/user/delete/' + user.id"
                             method="delete"
                             as="button"
                             type="button"

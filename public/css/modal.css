@@ -80,3 +80,24 @@
 .modalForm button:active {
     transform: scale(0.97);
 }
+
+.checkbox-container {
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content:left;
+    align-items: center;
+}
+
+
+.checkbox-container label {
+    display: block;
+    white-space: nowrap;
+    flex: 90%;
+}
+
+.checkbox-container input {
+    display: block;
+    white-space: nowrap;
+    width: 20px;
+}
