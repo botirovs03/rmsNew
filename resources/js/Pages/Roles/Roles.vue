@@ -3,7 +3,7 @@
         <div id="Title">Roles</div>
         <h1>This is Roles</h1>
         <div>
-            <Button class="create-link" @click="isCreate = !isCreate"> Add New Role </Button>
+            <button class="create-link" @click="isCreate = !isCreate"> Add New Role </button>
             <Transition>
                 <UpsertRole
                     @toclose="CloseModal"
@@ -107,12 +107,6 @@ export default {
 .v-leave-to {
     margin-top: -50px;
     opacity: 0;
-}
-
-#Title {
-    position: relative;
-    top: -70px;
-    font-size: 40px;
 }
 template {
     background-color: #fef7e5;

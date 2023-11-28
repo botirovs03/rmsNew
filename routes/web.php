@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\TableController;
@@ -20,12 +21,28 @@ use App\Http\Controllers\RoleController;
 |
 */
 
+
+
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/category', [CategoryController::class, 'index']);
 Route::get('/menu', [MenuController::class, 'index']);
 Route::get('/order', [OrderController::class, 'index']);
-Route::get('/table', [TableController::class, 'index']);
-Route::get('/transaction', [TransactionController::class, 'index']);
+
+
+Route::get('/table', [TableController::class, 'index'])->name('table.index');
+Route::get('/table/{id}', [TableController::class, 'show']);
+Route::post('/table/create', [TableController::class, 'store']);
+Route::delete('/table/delete/{id}', [TableController::class, 'destroy']);
+Route::put('/table/update/{id}', [TableController::class, 'update']);
+
+
+
+Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction.index');
+Route::get('/transaction/{id}', [TransactionController::class, 'show']);
+Route::post('/transaction/create', [TransactionController::class, 'store']);
+Route::delete('/transaction/delete/{id}', [TransactionController::class, 'destroy']);
+Route::put('/transaction/update/{id}', [TransactionController::class, 'update']);
+
 
 
 Route::get('/user', [UserController::class, 'index'])->name('user.index');
@@ -41,3 +58,4 @@ Route::post('/role/create', [RoleController::class, 'store']);
 Route::delete('/role/delete/{id}', [RoleController::class, 'destroy']);
 Route::put('/role/update/{id}', [RoleController::class, 'update']);
 
+Route::get('/balance', [Controller::class, 'balance']);

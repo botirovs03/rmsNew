@@ -17,6 +17,8 @@
         "@fortawesome/vue-fontawesome": "^3.0.0-5",
         "@inertiajs/vue3": "^1.0.14",
         "@vitejs/plugin-vue": "^4.5.0",
+        "laravel-echo": "^1.15.3",
+        "pusher-js": "^8.3.0",
         "vue": "^3.3.8"
     }
 }

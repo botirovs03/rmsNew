@@ -9,5 +9,8 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    define: {
+        'process.env': import.meta.env,
+      },
 });
  

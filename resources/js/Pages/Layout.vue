@@ -1,12 +1,14 @@
 <template>
     <div id="screen">
+        <div class="balance">
+           Balance:  {{ balance }}
+        </div>
         <header>
-          <div id="NavButton">
-            <button @click="navbar">
-                <fa icon="bars" />
-            </button>
-            
-          </div>
+            <div id="NavButton">
+                <button @click="navbar">
+                    <fa icon="bars" />
+                </button>
+            </div>
             <div id="logoContainer">Logo</div>
 
             <nav>
@@ -69,6 +71,7 @@
 
 <script>
 import { Link } from "@inertiajs/vue3";
+import axios from "axios";
 
 export default {
     components: {
@@ -77,7 +80,12 @@ export default {
     data() {
         return {
             navbarState: true,
+            balance: null,
         };
+    },
+    mounted() {
+        // Call getBalance when the component is mounted
+        this.getBalance();
     },
     methods: {
         navbar() {
@@ -86,27 +94,47 @@ export default {
                 document.querySelector("#screen").style.width = "93%";
                 document.querySelector("header").style.marginLeft = "-18%";
                 let spans = document.querySelectorAll("a span");
-                spans.forEach((span)=>{
+                spans.forEach((span) => {
                     span.style.width = "0%";
-                })
+                });
                 this.navbarState = false;
             } else {
                 document.querySelector("#screen").style.marginLeft = "25%";
                 document.querySelector("#screen").style.width = "75%";
                 document.querySelector("header").style.marginLeft = "0%";
                 let spans = document.querySelectorAll("a span");
-                spans.forEach((span)=>{
+                spans.forEach((span) => {
                     span.style.width = "100%";
-                })
+                });
                 this.navbarState = true;
             }
+        },
+        getBalance() {
+            let config = {
+                method: "get",
+                maxBodyLength: Infinity,
+                url: "http://localhost/balance",
+            };
+
+            axios
+                .request(config)
+                .then((response) => {
+                    // Update the balance property with the calculated balance
+                    this.balance =
+                        response.data.balance.total_income -
+                        response.data.balance.total_cost;
+                    console.log(JSON.stringify(response.data));
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
         },
     },
 };
 </script>
 
 <style scoped>
-*{
+* {
     /* border: 1px solid black; */
 }
 #screen {
@@ -117,6 +145,13 @@ export default {
 
     margin-left: 25%;
     transition: all 0.3s;
+}
+.balance {
+    position: absolute;
+    top:30px;
+    right: 60px;
+    font-size: 24px;
+    font-weight: 800;
 }
 header {
     left: 0;
@@ -143,28 +178,26 @@ nav {
 }
 
 #NavButton {
-  position: absolute;
-  right: 25px;
-  top: 25px;
+    position: absolute;
+    right: 25px;
+    top: 25px;
 }
 
 #NavButton button {
-  background: none;
-  border: none;
-  width: 30px;
-  height: 30px;
-  font-size: 24px;
+    background: none;
+    border: none;
+    width: 30px;
+    height: 30px;
+    font-size: 24px;
 }
 
 #NavButton button:hover {
-transform: scale(1.2);  
+    transform: scale(1.2);
 }
 
 #NavButton button:active {
-transform: scale(0.9);  
+    transform: scale(0.9);
 }
-
-
 
 .links {
     margin: 10px;
@@ -174,7 +207,7 @@ transform: scale(0.9);
 .links svg {
     display: block;
     margin: 10px;
-    color: black;    
+    color: black;
     font-size: 26px;
 }
 
@@ -193,16 +226,17 @@ a {
 }
 
 a span {
-   overflow: hidden;
-   width: 100%;
-   transition: width 0.3s;
-   white-space: nowrap;
+    overflow: hidden;
+    width: 100%;
+    transition: width 0.3s;
+    white-space: nowrap;
 }
 
 article {
-  padding: 15px;
+    padding: 15px;
     height: calc(100%);
     border-radius: 50px;
     border: 1px solid #f9e4a3;
+    overflow-y: scroll;
 }
 </style>

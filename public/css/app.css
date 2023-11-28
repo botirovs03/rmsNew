@@ -18,3 +18,9 @@ body {
     background-color: #FEF7E5 ;
 
 }
+
+#Title {
+    position: absolute;
+    top: 20px;
+    font-size: 40px;
+}

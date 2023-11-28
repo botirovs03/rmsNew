@@ -16,13 +16,13 @@ class CreateFinancialTransactionsTable extends Migration
             $table->time('transaction_time');
             
             // Foreign key relationship with the users table
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->constrained()->nullable();;
 
             $table->enum('transaction_type', ['Cost', 'Income']);
             $table->unsignedBigInteger('order_id')->nullable();
             $table->enum('payment_method', ['Naxd', 'UzCard', 'Humo', 'Bank raqami'])->nullable();
             $table->string('invoice_number')->nullable();
-            $table->string('transaction_source');
+            $table->string('transaction_source')->nullable();;
             
             // Additional notes for the transaction
             $table->text('notes')->nullable();

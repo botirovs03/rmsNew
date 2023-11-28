@@ -26,11 +26,11 @@ class FinancialTransaction extends Model
 
     protected $casts = [
         'transaction_date' => 'date',
-        'transaction_time' => 'time',
+        'transaction_time' => 'datetime'
     ];
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
